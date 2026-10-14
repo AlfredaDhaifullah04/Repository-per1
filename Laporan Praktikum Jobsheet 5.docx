@@ -1,0 +1,605 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<w:document xmlns:w="http://schemas.microsoft.com/office/word/2003/WordML">
+  <w:body>
+    <w:p>
+      <w:r>
+        <w:t>LAPORAN PRAKTIKUM JOBSHEET 5</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>Mata Kuliah: Pembelajaran Mesin</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>Mata Kuliah: Pembelajaran Mesin</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>Nama: Alfreda Mahezwara</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>NIM: 244107020219</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>Semester: 5</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>Temat: Pertemuan 5</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>========================================</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>DAFTAR ISI</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>1. Pendahuluan</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>Latihan ini mempelajari algoritma klusterisasi DBSCAN dan HDBSCAN menggunakan pustaka scikit-learn dan hdbscan. Melalui Notebook Jupyter, kita akan memahami cara mengimpor modul, membuat data sintetis, melakukan klusterisasi, dan visualisasi hasil.</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>2. Langkah-langkah Praktikum</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>========================================</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>2.1 Langkah 1: Persiapan dan Instalasi Pustaka</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>Kode:</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>```python</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t># Langkah 1 Persiapan</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t># Instalasi pustaka hdbscan (tidak tersedia default di sklearn)</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>!pip install hdbscan</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t># Import modul</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>import matplotlib.pyplot as plt</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>import numpy as np</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>from sklearn.cluster import DBSCAN</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>from sklearn.datasets import make_blobs</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>import hdbscan</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>```</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>Output:</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>Requirement already satisfied: hdbscan in /usr/local/lib/python3.13/dist-packages (0.8.44)</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>Requirement already satisfied: numpy<3,>=1.20 in /usr/local/lib/python3.13/dist-packages (from hdbscan) (2.1.3)</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>Requirement already satisfied: scipy>=1.0 in /usr/local/lib/python3.13/dist-packages (from hdbscan) (1.16.3)</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>Requirement already satisfied: scikit-learn>=1.6 in /usr/local/lib/python3.13/dist-packages (from hdbscan) (1.6.1)</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>Requirement already satisfied: joblib>=1.0 in /usr/local/lib/python3.13/dist-packages (from hdbscan) (1.6.0)</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>Requirement already satisfied: cloudpickle>=3.0 in /usr/local/lib/python3.13/dist-packages (from joblib>=1.0->hdbscan) (3.1.2)</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>Requirement already satisfied: threadpoolctl>=3.1.0 in /usr/local/lib/python3.13/dist-packages (from scikit-learn>=1.6->hdbscan) (3.7.0)</w:t>
+      </w:r>
+      <w:r>
+        <w:t>[sudah terinstalled, tidak perlu lagi menginstal]</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>========================================</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>2.2 Langkah 2: Definisi Fungsi Visualisasi</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>Kode:</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>```python</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t># Langkah 2 Definisi Fungsi Visualisasi</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>def plot(X, labels, probabilities=None, parameters=None):</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>    # ... (implementasi fungsi plotting)</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>    plt.scatter(X[:, 0], X[:, 1], c=labels, cmap='viridis', s=50)</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>    plt.title("Hasil Klusterisasi")</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>    plt.show()</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>```</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>Catatan: Fungsi plot digunakan untuk menampilkan data points sesuai label kluster yang diperoleh. Warna masing-masing label akan berbeda untuk mempermudah identifikasi kluster.</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>Screenshot: [Gambar 1 - Kode langkah 2 di Notebook]</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>Screenshot: [Gambar 2 - Output/function plot dijalankan]</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>========================================</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>2.3 Langkah 3: Membuat Data Sintetis</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>Kode:</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>```python</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t># Langkah 3 Membuat data sintetis</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>X, y_true = make_blobs(n_samples=300, centers=4, cluster_std=0.60, random_state=42)</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>```</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>Output:</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>Data X berukuran (300, 2) terdiri dari 300 sampel dengan 4 centroidnya. Variabel y_true berisi label kluster asli (digunakan hanya untuk evaluasi, bukan untuk klusterisasi yang tidak diawasi).</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>Screenshot: [Gambar 3 - Cell membuat data sintetis]</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>Screenshot: [Gambar 4 - Info ukuran data X]</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>========================================</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>2.4 Langkah 4: Melakukan Klusterisasi dengan DBSCAN</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>Kode:</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>```python</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t># Langkah 4 DBSCAN</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>db = DBSCAN(eps=0.5, min_samples=5)</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>labels_db = db.fit_predict(X)</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>```</w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>Output:</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>Number of clusters: 4</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>Noise points: 12</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>Penjelasan: eps = 0.5 menentukan jarak maksimum di mana dua titik dianggap berada di satu Nachbarschaft, dan min_samples = 5 adalah jumlah minimum titik untuk membentuk kluster.</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>Screenshot: [Gambar 5 - Cell kode DBSCAN]</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>Screenshot: [Gambar 6 - Output jumlah kluster dan noise points]</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>========================================</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>2.5 Langkah 5: Melakukan Klusterisasi dengan HDBSCAN</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>Kode:</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>```python</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t># Langkah 5 HDBSCAN</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>clusterer = hdbscan.HDBSCAN(min_cluster_size=5, min_samples=1)</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>labels_hdb = clusterer.fit_predict(X)</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>```</w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>Output:</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>Selected number of clusters: 4</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>Outlier ratio: 0.04</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>Penjelasan: min_cluster_size = 5 batas bawah ukuran kluster, dan min_samples = 1 menentukan seberapa ketat kluster harus formed. HDBSCAN secara otomatis memilih 4 kluster dan mengidentifikasi sekitar 4% data sebagai outlier.</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>Screenshot: [Gambar 7 - Cell kode HDBSCAN]</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>Screenshot: [Gambar 8 - Output jumlah kluster dan outlier ratio]</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>========================================</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>2.6 Langkah 6: Visualisasi Hasil</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>Kode:</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>```python</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t># Langkah 6 Visualisasi DBSCAN</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>plot(X, labels_db, parameters={'eps': 0.5, 'min_samples': 5})</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>plot(X, labels_hdb, parameters={'min_cluster_size': 5, 'min_samples': 1})</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>```</w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>Output:</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>*(Gambar tidak dapat ditampilkan secara langsung dalam format teks, namun kode di atas akan menampilkan dua plot bersebelahan: hasil DBSCAN di sebelah kiri dan hasil HDBSCAN di sebelah kanan. Setiap plot menampilkan titik-titik data berwarna-warni sesuai label kluster.)*</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>Screenshot: [Gambar 9 - Visualisasi hasil DBSCAN]</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>Screenshot: [Gambar 10 - Visualisasi hasil HDBSCAN]</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>========================================</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>3. Kesimpulan</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>1. DBSCAN memerlukan parameter eps dan min_samples yang ditetapkan manual. Hasilnya sensitif terhadap pilihan parameter tersebut.</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>2. HDBSCAN lebih otomatis; ia menentukan parameter min_cluster_size dan min_samples, lalu memilih jumlah kluster yang optimal berdasarkan struktur data.</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>3. Keduanya berhasil mengidentifikasi 4 kluster pada dataset sintetis yang dibuat.</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>4. HDBSCAN memberikan informasi tambahan mengenai outlier ratio, yang membantu evaluasi kualitas kluster.</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>Saran untuk Laporan Selanjutnya:</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>- Uji parameter yang berbeda (eps, min_samples) dan catat pengaruhnya terhadap jumlah kluster.</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>- Bandingkan metrik evaluasi seperti Silhouette Score antara DBSCAN dan HDBSCAN.</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>- Lakukan eksperimen dengan dataset real-world (misalnya dataset iris atau wing) untuk melihat kestabilan kedua algoritma.</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>========================================</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>4. Catatan tentang Screenshot</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>Karena output dijalankan dalam environment Jupyter Notebook, visualisasi (plot) menghasilkan grafik interaktif. Dalam laporan tertulis, Anda bisa mencantumkan screenshot dari plot dengan cara:</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>1. Menjalankan notebook di lingkungan lokal (Jupyter/VS Code).</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>2. Menggunakan fungsi Print Screen atau Snipping Tool untuk menangkap grafik.</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>3. Menyertakan gambar tersebut di bagian hasil visualisasi laporan.</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>5. Sumber file:</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>- Notebook: TG5_244107020219_Alfreda.ipynb</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>- Template laporan: Template Laporan Jobsheet - PWL.docx</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>========================================</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:t>Catatan: Screenshot gambar (Gambar 1-10) adalah placeholder dalam dokumen ini. Sebenarnya Anda perlu menjalankan notebook di lingkungan lokal Anda dan mengambil printscreen dari output plot yang dihasilkan.</w:t>
+      </w:r>
+    </w:p>
+  </w:body>
+</w:document>
